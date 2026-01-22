@@ -66,6 +66,7 @@ export default function BreakReminderWidget({ windowId }: BreakReminderWidgetPro
 
   const playNotification = () => {
     // Verificar que window esté disponible (solo en el cliente)
+    // Esto previene errores durante el SSR (Server-Side Rendering)
     if (typeof window === 'undefined') return;
     
     // Usar una frecuencia de audio simple para notificación
