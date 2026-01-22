@@ -96,12 +96,15 @@ export default function QuickLinksWidget({ windowId }: QuickLinksWidgetProps) {
   };
 
   const openLink = (url: string) => {
+    // Verificar que window esté disponible (solo en el cliente)
+    if (typeof window === 'undefined') return;
+    
     // Asegurar que la URL tenga protocolo
     let finalUrl = url.trim();
     if (!finalUrl.startsWith('http://') && !finalUrl.startsWith('https://')) {
       finalUrl = 'https://' + finalUrl;
     }
-    window.open(finalUrl, '_blank');
+    (window as any).open(finalUrl, '_blank');
   };
 
   return (

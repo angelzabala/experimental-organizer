@@ -65,8 +65,14 @@ export default function BreakReminderWidget({ windowId }: BreakReminderWidgetPro
   }, [isRunning]);
 
   const playNotification = () => {
+    // Verificar que window esté disponible (solo en el cliente)
+    if (typeof window === 'undefined') return;
+    
     // Usar una frecuencia de audio simple para notificación
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const AudioContextClass = (window as any).AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) return;
+    
+    const audioContext = new AudioContextClass();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
     
